@@ -1,0 +1,2 @@
+class ActivityStat < ApplicationRecord
+end
