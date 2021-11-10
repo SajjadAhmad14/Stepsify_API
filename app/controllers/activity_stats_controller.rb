@@ -1,6 +1,7 @@
 class ActivityStatsController < ApplicationController
   def create
-    @stat = ActivityStat.create!(stat_params)
+    user = User.find_by(id: params[:user_id])
+    @stat = user.activity_stats.create!(stat_params)
     if !@stat.valid?
       render json: { errors: @stat.errors.full_messages }
     end
@@ -43,6 +44,6 @@ class ActivityStatsController < ApplicationController
   private
 
   def stat_params
-    params.permit(:steps, :id)
+    params.permit(:steps, :id, :user_id)
   end
 end
