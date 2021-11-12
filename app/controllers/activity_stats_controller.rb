@@ -27,9 +27,15 @@ class ActivityStatsController < ApplicationController
   def user_stats
     user = User.find_by(id: params[:id])
     today_stat = user.activity_stats.today()
-    render json: { stats: today_stat }
+    sum = 0
+    today_stat.each do |s|
+      sum += s.steps.to_d
+    end
+    calories_today = ActivityStat.calories_burned(today_stat)
+    height = user.height * 0.3048
+    bmi = user.weight (kg) / height * height
+    render json: { sum: sum, height: height, weight: user.weight, bmi: bmi, calories: calories_today}
     # today_stpes = ActivityStat.steps(today_stat)
-    # calories_today = ActivityStat.calories_burned(today_stat)
     # yesterday_stat = ActivityStat.yesterday()
     # yesterday_steps = ActivityStat.steps(yesterday_stat)
     # yesterday_calories = ActivityStat.calories_burned(yesterday_stat)
