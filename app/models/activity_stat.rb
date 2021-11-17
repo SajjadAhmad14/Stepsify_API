@@ -18,8 +18,12 @@ class ActivityStat < ApplicationRecord
     ActivityStat.where("DATE(created_at) = ?", Date.today-1)
   end
 
-  def self.last_week
-    ActivityStat.where("DATE(created_at) < ?", 7.days.ago)
+  def self.last_week_1
+    ActivityStat.where("DATE(created_at) < ?", 5.days.ago)
+  end
+
+  def self.last_week_2
+    ActivityStat.where("DATE(created_at) < ?", 4.days.ago)
   end
 
   def self.steps(stats)

@@ -29,14 +29,30 @@ class ActivitiesController < ApplicationController
     head :no_content
   end
 
-  def today_targets
+  def targets
     user = User.find_by(id: params[:id])
-    target = user.activities.where("DATE(created_at) = ?", Date.today)
-    sum = 0.0
-    target.each do |t|
-      sum += t.target.to_d
+    today_target = user.activities.where("DATE(created_at) = ?", Date.today)
+    yesterday_target = user.activities.where("DATE(created_at) = ?", Date.today-1)
+    last_week_1_target = user.activities.where("DATE(created_at) < ?", 5.days.ago)
+    last_week_2_target = user.activities.where("DATE(created_at) < ?", 4.days.ago)
+    sum_of_today_targets = 0.0
+    sum_of_yesterday_targets = 0.0
+    sum_of_last_week_1_targets = 0.0
+    sum_of_last_week_2_targets = 0.0
+    today_target.each do |t|
+      sum_of_today_targets += t.target.to_d
     end
-    render json: { sum: sum }
+    yesterday_target.each do |t|
+      sum_of_yesterday_targets += t.target.to_d
+    end
+    last_week_1_target.each do |t|
+      sum_of_last_week_1_targets += t.target.to_d
+    end
+    last_week_2_target.each do |t|
+      sum_of_last_week_2_targets += t.target.to_d
+    end
+    render json: { today_target: sum_of_today_targets, yesterday_target:  sum_of_yesterday_targets,
+    last_week_1_target: sum_of_last_week_1_targets, last_week_2_target: sum_of_last_week_2_targets}
   end
 
   private
