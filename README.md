@@ -58,7 +58,7 @@ After making the local copy of the repository:
 
 Feel free to reach me out. I'm always happy to connect :slightly_smiling_face:
 
-👤 **Mkrtich Sargsyan**
+👤 **Sajjad Ahmad**
 
 [<code><img height="26" src="https://cdn.iconscout.com/icon/free/png-256/github-153-675523.png"></code>](https://github.com/SajjadAhmad14)
 [<code><img height="26" src="https://upload.wikimedia.org/wikipedia/sco/thumb/9/9f/Twitter_bird_logo_2012.svg/1200px-Twitter_bird_logo_2012.svg.png"></code>](https://twitter.com/Sajjad_Ahmad14)
