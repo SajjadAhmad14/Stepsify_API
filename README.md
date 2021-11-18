@@ -3,7 +3,7 @@
 
 ## About
 
-This app is a back end of Stepsify app. Is provides services to front end as user authentication using JSON web tokens. User can add target for running in Kilo meters and add entries in kilo meters to achieve the target. User can see progress in Progress bars.
+This app is a back end of Stepsify mobile app. Is provides services to front end as user authentication using JSON web tokens. User can add target for running in Kilo meters and add entries in kilo meters to achieve the target. User can see progress in Progress bars.
 
 To build this application we used:
 
