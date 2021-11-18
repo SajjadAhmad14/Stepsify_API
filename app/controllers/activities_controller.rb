@@ -1,3 +1,5 @@
+# rubocop:disable all
+
 class ActivitiesController < ApplicationController
   def create
     @activity = Activity.create!(activity_params)
@@ -32,7 +34,7 @@ class ActivitiesController < ApplicationController
   def targets
     user = User.find_by(id: params[:id])
     today_target = user.activities.where("DATE(created_at) = ?", Date.today)
-    yesterday_target = user.activities.where("DATE(created_at) = ?", Date.today-1)
+    yesterday_target = user.activities.where("DATE(created_at) = ?", Date.today - 1)
     last_week_1_target = user.activities.where("DATE(created_at) < ?", 5.days.ago)
     last_week_2_target = user.activities.where("DATE(created_at) < ?", 4.days.ago)
     sum_of_today_targets = 0.0
@@ -51,8 +53,8 @@ class ActivitiesController < ApplicationController
     last_week_2_target.each do |t|
       sum_of_last_week_2_targets += t.target.to_d
     end
-    render json: { today_target: sum_of_today_targets, yesterday_target:  sum_of_yesterday_targets,
-    last_week_1_target: sum_of_last_week_1_targets, last_week_2_target: sum_of_last_week_2_targets}
+    render json: { today_target: sum_of_today_targets, yesterday_target: sum_of_yesterday_targets,
+                   last_week_1_target: sum_of_last_week_1_targets, last_week_2_target: sum_of_last_week_2_targets }
   end
 
   private

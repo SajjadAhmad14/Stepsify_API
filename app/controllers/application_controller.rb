@@ -1,6 +1,6 @@
-class ApplicationController < ActionController::API
-  # before_action :authorize_user
+# rubocop:disable all
 
+class ApplicationController < ActionController::API
   def encode_token(payload)
     JWT.encode(payload, "my secret")
   end
@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
 
   def decoded_token
     if auth_header
-      token = auth_header.split(" ")[1]
+      token = auth_header.split[1]
       begin
         JWT.decode(token, "my secret", true, algorithm: "HS256")
       rescue JWT::DecodeError
@@ -25,8 +25,6 @@ class ApplicationController < ActionController::API
     if decoded_token
       user_id = decoded_token[0]["user_id"]
       @user = User.find_by(id: user_id)
-    else
-      nil
     end
   end
 
@@ -35,6 +33,6 @@ class ApplicationController < ActionController::API
   end
 
   def authorize_user
-    render json: { 'message': "Please login first!" }, status: :unauthorized unless logged_in?
+    render json: { message: "Please login first!" }, status: :unauthorized unless logged_in?
   end
 end

@@ -14,12 +14,12 @@ class UsersController < ApplicationController
 
   def login
     @user = User.find_by(username: params[:username])
-    if @user && @user.authenticate(params[:password])
+    if @user&.authenticate(params[:password])
       payload = { user_id: @user.id }
       token = encode_token(payload)
       render json: { user: @user, token: token }, status: 200
     else
-      render json: { 'message': "No User found! Please signup first!" }, status: 400
+      render json: { message: 'No User found! Please signup first!' }, status: 400
     end
   end
 

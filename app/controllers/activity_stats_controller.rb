@@ -1,10 +1,10 @@
+# rubocop:disable all
+
 class ActivityStatsController < ApplicationController
   def create
     user = User.find_by(id: params[:user_id])
     @stat = user.activity_stats.create!(stat_params)
-    if !@stat.valid?
-      render json: { errors: @stat.errors.full_messages }
-    end
+    render json: { errors: @stat.errors.full_messages } unless @stat.valid?
   end
 
   def update
@@ -26,10 +26,10 @@ class ActivityStatsController < ApplicationController
 
   def user_stats
     user = User.find_by(id: params[:id])
-    today_stat = user.activity_stats.today()
-    yesterday_stat = user.activity_stats.yesterday()
-    last_week_1_stats = user.activity_stats.last_week_1()
-    last_week_2_stats = user.activity_stats.last_week_2()
+    today_stat = user.activity_stats.today
+    yesterday_stat = user.activity_stats.yesterday
+    last_week_1_stats = user.activity_stats.last_week_1
+    last_week_2_stats = user.activity_stats.last_week_2
     sum_of_today_stats = 0
     sum_of_yesterday_stats = 0
     sum_of_last_week_1_stats = 0
@@ -52,12 +52,12 @@ class ActivityStatsController < ApplicationController
     calories_last_week_2 = ActivityStat.calories_burned(last_week_2_stats)
     height_in_meters = user.height * 0.3048
     bmi = (user.weight / height_in_meters * height_in_meters).truncate(1)
-    render json: { today_stats: sum_of_today_stats, yesterday_stats:  sum_of_yesterday_stats,
-      last_week_1_stats: sum_of_last_week_1_stats, last_week_2_stats: sum_of_last_week_2_stats,
-      height: user.height, weight: user.weight, bmi: bmi, today_calories: calories_today,
-      yesterday_calories: calories_yesterday, last_week_1_calories: calories_last_week_1,
-    last_week_2_calories: calories_last_week_2, today: Date.today, yesterday: Date.today-1,
-    last_week_1: Date.today - 5, last_week_2: Date.today - 4}
+    render json: { today_stats: sum_of_today_stats, yesterday_stats: sum_of_yesterday_stats,
+                   last_week_1_stats: sum_of_last_week_1_stats, last_week_2_stats: sum_of_last_week_2_stats,
+                   height: user.height, weight: user.weight, bmi: bmi, today_calories: calories_today,
+                   yesterday_calories: calories_yesterday, last_week_1_calories: calories_last_week_1,
+                   last_week_2_calories: calories_last_week_2, today: Date.today, yesterday: Date.today - 1,
+                   last_week_1: Date.today - 5, last_week_2: Date.today - 4 }
   end
 
   private
@@ -66,3 +66,5 @@ class ActivityStatsController < ApplicationController
     params.permit(:steps, :id, :user_id)
   end
 end
+
+# rubocop:enable all
