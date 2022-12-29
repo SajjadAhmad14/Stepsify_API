@@ -17,5 +17,6 @@ test:
 production:
   <<: *default
   database: stepsifi_api_production
+  url: <%= ENV[‘DATABASE_URL’] %>
   username: stepsifi_api
   password: <%= ENV['STEPSIFI_API_DATABASE_PASSWORD'] %>
